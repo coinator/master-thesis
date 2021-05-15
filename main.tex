@@ -4,19 +4,19 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{cite}
-\usepackage{subfiles}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
-\begin{document}
 
 \author{Me}
 \title{Physics Informed Neural Networks} 
+
+\begin{document}
 \maketitle 
 
-\subfile{introduction}
+\input{chapters/introduction}
 
-\subfile{neural_net}
+\input{chapters/neural_net}
 
 \bibliography{master}{}
 \bibliographystyle{unsrt}
