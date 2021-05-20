@@ -1,16 +1,15 @@
-
 \section{Differential Equations}
 \subsection{Poisson's equation}
 
 This it the introduction ~\cite{Example}.
 
-A first demonstration is solving the Poisson equation, which is elliptic. For a domain 
+A first demonstration is solving the Poisson equation, which is elliptic. For a domain
 $ \Omega \subset \mathbb{R}^n $ with boundary $\partial \Omega = \Gamma_{D} \cup \Gamma_{N}$ the equation reads:
 
 \begin{align}
-	-\nabla^2 u   &= f  && \text{in $\Omega$,} \\
-	    u   &= 0  && \text{on $\Gamma_D$,} \\
-	\nabla u \cdot n &= g  && \text{on $\Gamma_N$.}
+  -\nabla^2 u   &= f  && \text{in $\Omega$,} \\
+      u   &= 0  && \text{on $\Gamma_D$,} \\
+  \nabla u \cdot n &= g  && \text{on $\Gamma_N$.}
 \end{align}
 
 \subsection{hp-FEM}
@@ -20,11 +19,11 @@ An extension of finite elements are the hp-finite-elements, which use quadratic 
 \section{Neural Networks}
 Neural nets have had many successes with many computational problems in the last few years, thanks to their ability to very quickly and in a parallel way to optimize certain problems. ~\cite{Example}
 
+\input{tikz/neural_net}
+
 \subsection{Automatic Differentiation}
 
 \subsection{Physics Informed Neural Networks}
 
-Due to the overlap of the notation of "test" within Finite Element Analysis and Machine Learning, 
+Due to the overlap of the notation of "test" within Finite Element Analysis and Machine Learning,
 to avoid any confusion in this work we will use the former unless explicitly told so.
-
-
