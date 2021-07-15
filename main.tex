@@ -1,24 +1,33 @@
-\documentclass{article}
+\documentclass[12pt]{report}
 
 \usepackage[utf8]{inputenc}
+\usepackage{afterpage}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{cite}
+\usepackage{setspace} 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
+% sharp vi
+\DeclareSymbolFont{matha}{OML}{txmi}{m}{it}% txfonts
+\DeclareMathSymbol{\varv}{\mathord}{matha}{118}
 
-\author{Me}
-\title{Physics Informed Neural Networks} 
+\onehalfspacing
+
+\input{commands.tex}
 
 \begin{document}
-\maketitle 
+\input{titlepages.tex}
+
+\tableofcontents
+
+\listoffigures
 
 \input{chapters/introduction}
+\input{chapters/results}
 
-\input{tikz/neural_net}
-
-\bibliography{master}{}
+\bibliography{main.bib}{}
 \bibliographystyle{unsrt}
 
 \end{document}

@@ -1,10 +1,23 @@
+\chapter{Introduction}
+
 \section{Differential Equations}
 \subsection{Poisson's equation}
 
-This it the introduction ~\cite{Example}.
+This is the introduction ~\cite{Example}.
 
 A first demonstration is solving the Poisson equation, which is elliptic. For a domain
 $ \Omega \subset \mathbb{R}^n $ with boundary $\partial \Omega = \Gamma_{D} \cup \Gamma_{N}$ the equation reads:
+
+\begin{align}
+  - \frac{d^2u(x)}{dx^2} = f(x) &, \\
+  u(-1) = g &, u(1) = h,
+\end{align}
+
+giving a strong residual of
+\begin{align}
+  r(x) = - \frac{d^2u_{NN}(x)}{dx^2} - f(x), && x \in  (-1, 1) \\
+  r_b(x) = u_{NN}(x) - u(x), && x = \pm 1
+\end{align}
 
 \begin{align}
   -\nabla^2 u   &= f  && \text{in $\Omega$,} \\
@@ -13,20 +26,65 @@ $ \Omega \subset \mathbb{R}^n $ with boundary $\partial \Omega = \Gamma_{D} \cup
 \end{align}
 
 \subsection{hp-FEM}
-An extension of finite elements are the hp-finite-elements, which use quadratic elements, of width $h$, and a sum of consecutive polynomial functions of degree $p$, used as the test function.
+An extension of finite elements are the hp-Finite-Elements.
+Which use quadratic elements, of width $h$. And a sum of polynomial functions of degree $p$. Used as the test function.
 
+\subsection{Gauss-Lobatto Quadrature}
+
+Gaussian quadrature has been used to approximate the result of integrals by the know function values in the desired range usually $[-1, 1]$ with the form
+
+\begin{align}
+  \int f(x)dx \approx \sum_{i=1}^{n} w_i f(x_i),
+\end{align}
+
+with $w_i$ being the appropriate weights. In Gauss-Lobatto quadrature, where the end points of the range are included in the integration. The nodes $x_i$ are selected from the zeros of the Legendre functions with degree $n$. The formula is given by:
+
+\begin{align}
+  \int f(x)dx = \frac{2}{n(n-1)}[f(1) + f(-1)] + \sum_{i=2}^{n-1} w_i f(x_i) + R_n.
+\end{align}
+
+with the weights given by
+
+\begin{align}
+  w_i = \frac{2}{n(n-1)[P_n-1 (x_i)]^2}, \qquad x \neq \pm 1
+\end{align}
 
 \section{Neural Networks}
-Neural nets have had many successes with many computational problems in the last few years, thanks to their ability to very quickly and in a parallel way to optimize certain problems. ~\cite{Example}
+Neural nets have had many successes with many computational problems in the last few years,
+thanks to their ability to very quickly and in a parallel way to optimize certain problems. ~\cite{Example}
 
 \begin{figure}[!ht]
   \centering
   \input{tikz/neural_net}
 \end{figure}
 
-\subsection{Automatic Differentiation}
+\input{chapters/introduction/automatic_differentiation}
 
-\subsection{Physics Informed Neural Networks}
+\section{Physics Informed Neural Networks}
 
 Due to the overlap of the notation of "test" within Finite Element Analysis and Machine Learning,
 to avoid any confusion in this work we will use the former unless explicitly told so.
+
+\subsection{Residuals}
+
+\begin{align}
+  \mathcal{R}_{j}(\tilde{u}) &=  \int_{\Omega \times (0, T] } r(\tilde{u}) \varv_j dx = 0 \\
+  \mathcal{R}_{b,j}(\tilde{u}) &=  \int_{\partial\Omega \times (0, T] } r_b(\tilde{u}) \varv_j dx = 0 \\
+  \mathcal{R}_{0,j}(\tilde{u}) &=  \int_\Omega r_0(\tilde{u}) \varv_j dx = 0
+\end{align}
+
+\begin{align}
+  \min_{\mathbf{W}, \mathbf{b}} \mathcal{J} (\tilde{u}, \varv),
+\end{align}
+
+where $\mathcal{J}$ is defined as
+
+\begin{align}
+  \mathcal{J} (\tilde{u}, \varv) = w \sum_{j=1}^{N_r} \mathcal{R}_j^{2} (\tilde{u}) + w_b \sum_{j=1}^{N_b} \mathcal{R}_{b,j}^{2} (\tilde{u}) + w_0 \sum_{j=1}^{N_0} \mathcal{R}_{0,j}^{2} (\tilde{u})
+\end{align}
+
+thus on a per-element basis we obtain the following variational loss:
+
+\begin{align}
+  L^p = \sum_{e=1}^{N_{el}}\frac{1}{K^{(e)}}\sum_{k=1}^{K^{(e)}}\left|\mathcal{R}_k^{(e)}\right|^2 + \tau_b\frac{1}{N_b}\sum_{i=1}^{N_b}\left|r_b(\mathbf{x}_b^i,\mathbf{r}_b^i)\right|^2 + \tau_0\frac{1}{N_0}\sum_{i=1}^{N_0}\left|r_0(\mathbf{x}_b^i)\right|^2
+\end{align}

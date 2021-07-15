@@ -1,0 +1,25 @@
+\section{Automatic Differentiation}
+
+In order to obtain the required derivatives for the optimization process of a PINN, one could either resort to manually obtaining them and coding them, or numerically with a method such as central differences or symbolically where a program can manipulate expressions and provide a closed-form of the required function. ~\cite{Automatic}
+
+All methods mentioned above are unsuitable for deep-learning applications .
+
+Manual differentiation is very error prone, if not humanly-impossible for very deep nets.
+Numerical differentiations of the form
+
+\begin{align}
+  \frac{\partial f(\mathbf{x})}{\partial x_i} \approx \frac{f(\mathbf{x} + h\mathbf{e}))}{h}
+\end{align}
+
+is easy to implement, but round-off and truncation errors make it unacceptable for the gradients of deep-learning problems, which can be dependent on millions of parameters.
+
+Symbolic differentiation, addresses the issues of manual and numerical differentiation, but its expression can be complex and suffer from "expression swell", the time required to compute a derivative scales together with the complexity of the expression.
+
+Automatic Differentiation (also known as \emph{algorithmic differentiation}) can tackle effectively the aforementioned issues.
+Automatic Differentiation relies on the chain rule $(f \circ g)' = (f'\circ g)\cdot g'$consists of two modes, \emph{forward accumulation} and \emph{backward accumulation}, which dictate how one can reach $dy/dw_i$ from $dw_i/dx$ and vice versa.
+
+\begin{figure}[!ht]
+  \centering
+  \input{tikz/autom_graph}
+  \caption{"The forward accumulation graph"}
+\end{figure}
